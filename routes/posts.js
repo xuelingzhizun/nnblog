@@ -45,7 +45,7 @@ router.post('/:postId/comment', check.BeReqLogin, function (req, res, next) {
 
 // GET /posts/:postId/comment/:commentId/remove 删除一条留言
 router.get('/:postId/comment/:commentId/remove', check.BeReqLogin, function (req, res, next) {
-  res.send(req.flash());
-});
+  res.send(req.flash())
+})
 
 module.exports = router

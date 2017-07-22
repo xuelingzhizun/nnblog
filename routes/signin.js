@@ -10,7 +10,7 @@ router.route('/')
     res.send(req.flash())
   })
   // POST /signin 用户登录
-  .post('/', check.NoLoginAgain, function (req, res, next) {
+  .post(check.NoLoginAgain, function (req, res, next) {
     res.send(req.flash())
   })
 
