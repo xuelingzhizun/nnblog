@@ -1,9 +1,17 @@
-var express = require('express')
-var router = express.Router()
+// 分路由引入
+var home = require('./home')
+var posts = require('./posts')
+var signin = require('./signin')
+var signout = require('./signout')
+var signup = require('./signup')
 
-// 首页
-router.get('/', function (req, res) {
-  res.send(req.flash())
-})
+// 路由
+function routes (app) {
+  app.use('/', home)
+  app.use('/posts', posts)
+  app.use('/signin', signin)
+  app.use('/signout', signout)
+  app.use('/signup', signup)
+}
 
-module.exports = router
+module.exports = routes

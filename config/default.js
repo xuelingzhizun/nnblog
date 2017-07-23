@@ -1,4 +1,5 @@
 module.exports = {
+  name: 'eblog',
   port: 3000,
   session: {
     secret: 'eblog',
