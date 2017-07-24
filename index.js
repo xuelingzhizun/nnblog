@@ -5,6 +5,7 @@ var MongoStore = require('connect-mongo')(session)
 var flash = require('connect-flash')
 var config = require('config-lite')(__dirname)
 var routes = require('./routes/index')
+var app = express()
 var sess = {
   name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
   secret: config.session.secret, // 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
@@ -18,21 +19,24 @@ var sess = {
   })
 }
 
-var app = express()
-
 // 设置模板目录
 app.set('views', path.join(__dirname, 'views'))
+
 // 设置模板引擎为 ejs
 app.set('view engine', 'ejs')
 
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')))
+
 // session 中间件
 app.use(session(sess))
+
 // flash 中间件，用来显示通知
 app.use(flash())
+
 // 路由
 routes(app)
+
 // 监听端口，启动程序
 app.listen(config.port, function () {
   console.log(`${config.name} listening on port ${config.port}`)
