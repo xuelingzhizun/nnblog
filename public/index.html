@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        <%= blog.title %>
+    </title>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Normalize -->
+    <link href="css/normalize.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                   <span class="sr-only">Toggle navigation</span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">标签</a></li>
+                    <li><a href="#">分类</a></li>
+                    <li><a href="#">关于</a></li>
+                    <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+                <p class="navbar-text navbar-right"><a data-toggle="modal" data-target="#signin" href="#" class="navbar-link">登录</a> 或 <a data-toggle="modal" data-target="#signup" href="#" class="navbar-link">注册</a></p>
+                <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+
+    <div class="container">
+        <!--警告框-->
+        <div class="alert alert-success text-center" role="alert">登录成功</div>
+        <div class="alert alert-danger text-center" role="alert">警告:你还没有登录,请点击
+            <a href="#" class="alert-link">登录</a>
+        </div>
+        <!--警告框结束-->
+
+        <!-- Button trigger modal -->
+        <!-- <button  data-toggle="modal" data-target="#myModal">
+          注册
+        </button> -->
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+
+                <!-- Modal -->
+                <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">注册</h4>
+                            </div>
+                            <div class="modal-body">
+                                <!-- 注册 -->
+                                <form>
+                                    <div class="form-group">
+                                        <label for="username">用户名</label>
+                                        <input type="email" class="form-control" id="username" placeholder="用户名">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">密码</label>
+                                        <input type="password" class="form-control" id="password" placeholder="密码">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="repassword">重复密码</label>
+                                        <input type="email" class="form-control" id="repassword" placeholder="重复密码">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">邮箱</label>
+                                        <input type="email" class="form-control" id="email" placeholder="邮箱">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icon">头像</label>
+                                        <input type="file" id="icon">
+                                        <p class="help-block">上传的头像图片请保持在 "120x120" 像素以内</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile">简介</label>
+                                        <textarea class="form-control" id="profile" rows="3" placeholder="一句话展示你自己"></textarea>
+                                    </div>
+                                    <!--
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> Check me out
+                                          </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Submit</button> -->
+                                </form>
+                            </div>
+                            <!-- 注册终止 -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary">注册</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal 终止 -->
+                <!-- Modal -->
+                <div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="signin">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="signin">登录</h4>
+                            </div>
+                            <div class="modal-body">
+                                <!-- 登录 -->
+                                <form>
+                                    <div class="form-group">
+                                        <label for="email">邮箱</label>
+                                        <input type="email" class="form-control" id="email" placeholder="填写注册时使用的邮箱">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">密码</label>
+                                        <input type="password" class="form-control" id="password" placeholder="填写你的登录密码">
+                                    </div>
+
+                                    <!-- <div class="form-group">
+                                        <label for="exampleInputFile">File input</label>
+                                        <input type="file" id="exampleInputFile">
+                                        <p class="help-block">Example block-level help text here.</p>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> Check me out
+                                          </label>
+                                    </div> -->
+                                    <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+                                </form>
+                            </div>
+                            <!-- 登录终止 -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary">登录</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal 终止 -->
+
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <!-- <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7"></div>
+            <div class="col-md-2"></div>
+        </div>
+         -->
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                  <img class="media-object" src="./img/64.png" alt="...">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Media headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrsrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrringMedia headingMedia headingMedia heading</h4>
+                
+            </div>
+        </div>
+    
+    </div>   
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>

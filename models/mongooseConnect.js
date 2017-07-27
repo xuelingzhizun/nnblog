@@ -1,8 +1,8 @@
 function connect (mongoose, config) {
-  var db = mongoose.connection
-
+  mongoose.Promise = global.Promise // 消除 mongoose 的promise 替换警告，至于为什么有这个警告不清楚
   mongoose.connect(config.mongodb)
 
+  var db = mongoose.connection
   db.on('error', console.error.bind(console, 'connection error:'))
   db.once('open', function (callback) {
     // yay!
