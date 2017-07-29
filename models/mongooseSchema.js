@@ -2,7 +2,7 @@ function user (mongoose) {
   var userSchema = new mongoose.Schema({
     name: {type: 'string'},
     password: {type: 'string'},
-    email: {type: 'string'}, 
+    email: {type: 'string'},
     icon: {type: 'string'}, // 头像
     profile: {type: 'string'} // 简介
 
@@ -12,8 +12,8 @@ function user (mongoose) {
   return UserModel
 }
 
-function post (mongoose) {
-  var postSchema = new mongoose.Schema({
+function article (mongoose) {
+  var articleSchema = new mongoose.Schema({
     author: { type: 'string' }, // 待修改
     title: { type: 'string' },
     content: { type: 'string' }, // 内容
@@ -22,12 +22,12 @@ function post (mongoose) {
 
   })
 
-  var PostModel = mongoose.model('users', postSchema)
-  return PostModel
+  var articleModel = mongoose.model('users', articleSchema)
+  return articleModel
 }
 
-function commit (mongoose) {
-  var commitSchema = new mongoose.Schema({
+function message (mongoose) {
+  var messageSchema = new mongoose.Schema({
     author: { type: 'string' },
     content: { type: 'string' },
     date: { type: Date, default: Date.now },
@@ -35,13 +35,13 @@ function commit (mongoose) {
 
   })
 
-  var CommitModel = mongoose.model('users', commitSchema)
-  return CommitModel
+  var MessageModel = mongoose.model('users', messageSchema)
+  return MessageModel
 }
 module.exports = {
   user: user,
-  post: post,
-  commit: commit
+  article: article,
+  message: message
 }
 
 /**
