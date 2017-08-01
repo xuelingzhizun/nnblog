@@ -1,0 +1,17 @@
+extends layout
+
+block title
+      h1
+        | #{h1}
+
+block content
+  var post
+  each message in posts
+    p
+      h2= message.title
+    p(class="info")
+      a(href='#')=  message.name 
+      a(href='#')=  message.time.minute
+    p
+      - var html = message.post
+      | !{html}

@@ -1,0 +1,16 @@
+extends layout
+
+block title
+      h1
+        | #{h1}
+block content
+  form(method='post')
+    | 标题：
+    input(type='text', name='title')
+    br
+    br
+    | 正文：
+    br
+    textarea(name="post",rows ="20",cols = "100")
+    br
+    input(type='submit', value='发表')
