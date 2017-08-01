@@ -9,7 +9,7 @@
                    <span class="icon-bar"></span>
                    <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="/">Eblog</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -143,31 +143,31 @@
                         </div>
                         <div class="modal-body">
                             <!-- 注册 -->
-                            <form method="post">
+                            <form method="POST" enctype="multipart/form-data" action="/signup" id="signup_form">
                                 <div class="form-group">
-                                    <label for="username">用户名</label>
-                                    <input type="email" class="form-control" id="username" placeholder="用户名">
+                                    <label for="username">用户名*</label>
+                                    <input type="text" class="form-control" id="username" placeholder="用户名请保持在10个字符以内" name="username">
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">密码</label>
-                                    <input type="password" class="form-control" id="password" placeholder="密码">
+                                    <label for="password">密码*</label>
+                                    <input type="password" class="form-control" id="password" placeholder="密码不少于6位" name="password">
                                 </div>
                                 <div class="form-group">
-                                    <label for="repassword">重复密码</label>
-                                    <input type="email" class="form-control" id="repassword" placeholder="重复密码">
+                                    <label for="repassword">重复密码*</label>
+                                    <input type="password" class="form-control" id="repassword" placeholder="重复密码" name="repassword">
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">邮箱</label>
-                                    <input type="email" class="form-control" id="email" placeholder="邮箱">
+                                    <label for="email">邮箱*</label>
+                                    <input type="email" class="form-control" id="email" placeholder="邮箱" name="email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="icon">头像</label>
-                                    <input type="file" id="icon">
+                                    <label for="icon">头像*</label>
+                                    <input type="file" id="icon" name="icon">
                                     <p class="help-block">上传的头像图片请保持在 "120x120" 像素以内</p>
                                 </div>
                                 <div class="form-group">
                                     <label for="profile">简介</label>
-                                    <textarea class="form-control" id="profile" rows="3" placeholder="一句话展示你自己"></textarea>
+                                    <textarea class="form-control" id="profile" rows="3" placeholder="一句话展示你自己，不要多于30个字" name="profile"></textarea>
                                 </div>
                                 <!--
                                     <div class="checkbox">
@@ -181,7 +181,7 @@
                         <!-- 注册终止 -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary">注册</button>
+                            <button type="submit" class="btn btn-primary" form="signup_form">注册</button>
                         </div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- 登录 -->
-                            <form action="/" method="POST">
+                            <form action="/" method="POST" id="signin_form">
                                 <div class="form-group">
                                     <label for="email">邮1箱</label>
                                     <input type="email" class="form-control" id="email" placeholder="填写注册时使用的邮箱">
@@ -206,7 +206,6 @@
                                     <label for="password">密码</label>
                                     <input type="password" class="form-control" id="password" placeholder="填写你的登录密码">
                                 </div>
-                                <button type="submit" class="btn btn-primary">登录</button>
 
                                 <!-- <div class="form-group">
                                         <label for="exampleInputFile">File input</label>
@@ -224,7 +223,7 @@
                         <!-- 登录终止 -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">登录</button>
+                            <button type="submit" class="btn btn-primary" form="signin_form" >登录</button>
                         </div>
                     </div>
                 </div>

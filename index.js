@@ -9,6 +9,7 @@ var routes = require('./routes/index')
 var sess = require('./models/sess')(config, MongoStore)
 var localVariables = require('./models/localVariables')
 var mongooseConnect = require('./models/mongooseConnect')
+var formidable = require('express-formidable')
 var app = express()
 // var sess = {
 //   name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
@@ -40,7 +41,13 @@ app.use(session(sess))
 // flash 中间件，用来显示通知
 app.use(flash())
 
-// 设置几个模板中用的变量
+// 设置req解析中间件
+app.use(formidable({
+  uploadDir: path.join(__dirname, 'public/img/icon'),
+  keepExtensions: true
+}))
+
+// 设置几个模板中用的变量 不需要通过req.render()来渲染进模板 
 localVariables.appLocals(app, config)
 app.use(localVariables.resLocals)
 
