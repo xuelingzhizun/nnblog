@@ -9,6 +9,7 @@ var router = express.Router()
 
 // 注册页
 router.post('/', check.NeedNoLogin, function (req, res) {
+
   var users = {
     name: req.fields.username,
     password: req.fields.password,
@@ -79,8 +80,12 @@ router.post('/', check.NeedNoLogin, function (req, res) {
       icon: users.iconnowname, // 头像
       profile: users.profile // 简介
     })
-    UserModule.create(user).then(req.flash('success', '注册成功'))
-    return res.redirect('/')
+    UserModule.create(user).then(
+      function (saveuser) {
+        req.session.user = saveuser
+        req.flash('success', '注册成功')
+        return res.redirect('/')
+      })
   })
   // user.save(function (err) {
   //   console.log('5')
