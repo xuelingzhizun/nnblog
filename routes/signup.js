@@ -3,7 +3,7 @@ var path = require('path')
 var express = require('express')
 var mongoose = require('mongoose')
 var sha1 = require('sha1')
-var ModuleUser = require('../models/mongooseSchema').user(mongoose)
+var UserModule = require('../models/mongooseSchema').user(mongoose)
 var check = require('../models/check')
 var router = express.Router()
 
@@ -39,45 +39,49 @@ router.post('/', check.NeedNoLogin, function (req, res) {
     if (!(users.profile.length <= 30)) {
       throw new Error('注册失败：个人简介请限制在 1-30 个字符')
     }
+    // 本段代码之所以注释，是因为考虑到findOne方法是异步的，在错误出来之前就已经略过catch了，不能有效捕捉错误，反而导致程序因没有合适的错误处理方式而出错而停止
+    // UserModule.findOne({ name: users.name })
+    //   .exec(function (err, auser) {
+    //     if (err) throw new Error('内部错误')
+    //     if (auser) {
+    //       console.log('auser:' + auser)
+    //       throw new Error('注册失败：用户名重复')
+    //     }
+    //   })
   } catch (e) {
     // 注册失败清除上传的头像
+    console.log('had catch 1') // %%debug 可以删除
     fs.unlink(users.iconurl, function (err) {
       if (err) return console.error(err)
     })
     req.flash('error', e.message)
     return res.redirect('/')
   }
-
-  var sha1password = sha1(users.password)
-
-  console.log('1')
-  ModuleUser.findOne({ name: 'fwefw' }, function (err, auser) {
-    console.log(auser)
-    console.log(auser.name)
-    if (err) {
-      console.error(err)
-      console.log('2')
+  // 查询用户名是否为重复
+  UserModule.findOne({ name: users.name }, function (err, auser) {
+    if (err) throw new Error('`UserModule.findOne()`内部错误')
+    if (auser) {
+      console.log('auser:' + auser) // %%debug 可以删除
+      // 用户名重复 删除所上传的头像
+      fs.unlink(users.iconurl, function (err) {
+        if (err) return console.error(err)
+      })
+      req.flash('error', '注册失败：用户名重复')
       return res.redirect('/')
     }
-    console.log('2' + auser.name)
-    if (auser.name) {
-      console.log('3' + auser.name)
-      req.flash('error', '用户已存在!')
-      return res.redirect('/') // 返回注册页
-    }
-    console.log('4')
-    var user = new ModuleUser({
+
+    var sha1password = sha1(users.password) // password 加密
+    // mongoose 中的创建具体的文档的方法 
+    var user = new UserModule({
       name: users.name,
       password: sha1password,
       email: users.email,
       icon: users.iconnowname, // 头像
       profile: users.profile // 简介
     })
-    ModuleUser.create(user)
+    UserModule.create(user).then(req.flash('success', '注册成功'))
     return res.redirect('/')
   })
-
-  console.log('5')
   // user.save(function (err) {
   //   console.log('5')
   //   if (err) return console.error(err)
