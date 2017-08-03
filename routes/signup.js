@@ -24,12 +24,12 @@ router.post('/', check.NeedNoLogin, function (req, res) {
   UserModule.findOne({ name: users.name }, function (err, auser) {
     try {
       if (!(users.name.length >= 1 && users.name.length < 10)) throw new Error('注册失败：用户名需要控制在十个字符之内')
+      if (auser) throw new Error('注册失败：用户名重复')
       if (users.password.length < 6) throw new Error('注册失败：密码至少 6 个字符')
       if (!(users.repassword === users.password)) throw new Error('注册失败：两次输入的密码不相同')
       if (!users.iconpastname) throw new Error('注册失败：没有上传你的头像')
       if (!(users.profile.length <= 30)) throw new Error('注册失败：个人简介请限制在 1-30 个字符')
       if (err) throw new Error('`UserModule.findOne()`内部错误')
-      if (auser) throw new Error('注册失败：用户名重复')
     } catch (e) {
       fs.unlink(users.iconurl, function (err) {
         if (err) return console.error(err)
