@@ -52,6 +52,7 @@ localVariables.appLocals(app, config)
 app.use(localVariables.resLocals)
 
 // 路由
+
 routes(app)
 
 // 监听端口，启动程序

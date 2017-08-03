@@ -12,7 +12,7 @@
     * "ejs": "^2.5.6",
     * "express": "^4.15.3",
     * "express-formidable": "^1.0.0",
-    * "express-session": "^1.15.4",
+    * "express-session": "^1.15.4",  // 1.5.0之后不需要在配合cookie-parser中间件
     * "express-winston": "^2.4.0",
     * "marked": "^0.3.6",
     * "moment": "^2.18.1",
@@ -43,6 +43,9 @@
 * 留言修改
 * 留言分页
 * 编辑器支持markdown
+
+### 安全性修补0
+* sha1 并不是一种十分安全的加密方式，实际开发中可以使用更安全的 bcrypt 或 scrypt 加密
 
 ### 代码抽象
 * 注册验证独立为一个模块
