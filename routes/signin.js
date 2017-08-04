@@ -9,11 +9,11 @@ var UserModel = mongoose.model('users')
 // GET /signout 登出
 router.post('/', check.NeedNoLogin, function (req, res) {
   var users = {
-    email: req.fields.email,
+    name: req.fields.username,
     password: req.fields.password
   }
 
-  UserModel.findOne({ email: users.email }, function (err, auser) {
+  UserModel.findOne({ name: users.name }, function (err, auser) {
     try {
       if (!auser) {
         throw new Error('登录失败：用户名或者密码错误')
