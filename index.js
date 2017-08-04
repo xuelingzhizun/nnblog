@@ -52,7 +52,13 @@ localVariables.appLocals(app, config)
 app.use(localVariables.resLocals)
 
 // 路由
+
 routes(app)
+// 错误处理中间件
+// app.use(function (err, req, res, next) {
+//   console.error(err.stack)
+//   res.status(500).send('Something broke!')
+// })
 
 // 监听端口，启动程序
 app.listen(config.port, function () {
