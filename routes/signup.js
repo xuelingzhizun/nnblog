@@ -3,7 +3,7 @@ var path = require('path')
 var express = require('express')
 var mongoose = require('mongoose')
 var sha1 = require('sha1')
-var UserModule = require('../models/mongooseSchema').user(mongoose)
+var UserModel = require('../models/mongooseSchema').user(mongoose)
 var check = require('../models/check')
 var router = express.Router()
 
@@ -29,7 +29,7 @@ router.post('/', check.NeedNoLogin, function (req, res) {
   }
 
   // 查询用户名是否为重复
-  UserModule.findOne({ name: users.name }, function (err, auser) {
+  UserModel.findOne({ name: users.name }, function (err, auser) {
     try {
       if (!(users.name.length >= 1 && users.name.length < 10)) throw new Error('注册失败：用户名需要控制在十个字符之内')
       if (auser) throw new Error('注册失败：用户名重复')
@@ -48,14 +48,14 @@ router.post('/', check.NeedNoLogin, function (req, res) {
 
     var sha1password = sha1(users.password) // password 加密
     // mongoose 中的创建具体的文档的方法 
-    var user = new UserModule({
+    var user = new UserModel({
       name: users.name,
       password: sha1password,
       email: users.email,
       icon: users.iconnowname, // 头像
       profile: users.profile // 简介
     })
-    UserModule.create(user).then(
+    UserModel.create(user).then(
       function (saveuser) {
         req.session.user = saveuser
         req.flash('success', '注册成功')
