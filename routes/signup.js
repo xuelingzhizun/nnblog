@@ -9,6 +9,14 @@ var router = express.Router()
 
 // 注册页
 router.post('/', check.NeedNoLogin, function (req, res) {
+  // try {
+  //   if (req.files === {}) throw new Error('请求不合法 禁止操作')
+  // } catch (e) {
+  //   console.log('sssssssssssssssssssssssssssssssssssssss')
+  //   req.flash('error', e.message)
+  //   return res.redirect('/')
+  // }
+  // console.log(typeof (req.files))
   var users = {
     name: req.fields.username,
     password: req.fields.password,
