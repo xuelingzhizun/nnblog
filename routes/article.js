@@ -10,7 +10,8 @@ router.get('/', function (req, res) {
 })
 
 // 点击头像展示 特定作者的所有文章summary方式展示
-router.get('/:author', check.NeedLogin, function (req, res) {
+router.get('/author=*', check.NeedLogin, function (req, res) { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
+  console.log('........-------------------------..................')
   ArticleModel.find({ author: req.params.author })
     .then(function (articles) {
       try {
@@ -21,6 +22,23 @@ router.get('/:author', check.NeedLogin, function (req, res) {
       }
       if (articles) {
         res.render('author_summary', { res: articles })
+      }
+    })
+})
+
+// 根据文章存储自动生成的_id 来寻找文章  主要用于发表完文章后自动跳转到已发表文章页
+router.get('/id=*', check.NeedLogin, function (req, res) { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
+  console.log(req.params[0])
+  ArticleModel.findOne({ _id: req.params[0] })
+    .then(function (article) {
+      try {
+        if (!article) throw new Error('链接文章失败：没有找到该文章')
+      } catch (e) {
+        req.flash('error', e.message)
+        return res.redirect('/')
+      }
+      if (article) {
+        res.render('article', { res: article })
       }
     })
 })
@@ -43,7 +61,7 @@ router.post('/', check.NeedLogin, function (req, res) {
   ArticleModel.create(article, function (error, result) {
     if (error) console.error(result)
     req.flash('success', '文章发表成功')
-    return res.redirect('/article')
+    return res.redirect('/article/id=' + result._id)
   })
   // ArticleModel.create(article)
   //   .then(function (error, result) {
