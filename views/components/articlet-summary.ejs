@@ -1,0 +1,24 @@
+<% res.forEach(function(res){ %>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="/img/64.png" alt="...">
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h2 class="media-heading"><a href="#"><%= res.title %></a></h2>
+                <p><%= res.summary %></p>
+                <p>... ...</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<br>
+<br>
+<% }) %>

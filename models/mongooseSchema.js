@@ -16,13 +16,14 @@ function article (mongoose) {
   var articleSchema = new mongoose.Schema({
     author: { type: 'string' }, // 待修改
     title: { type: 'string' },
+    summary: {type: 'string'},
     content: { type: 'string' }, // 内容
     date: { type: Date, default: Date.now },
     pv: { type: 'number' }
 
   })
 
-  var articleModel = mongoose.model('users', articleSchema)
+  var articleModel = mongoose.model('article', articleSchema)
   return articleModel
 }
 
@@ -35,7 +36,7 @@ function message (mongoose) {
 
   })
 
-  var MessageModel = mongoose.model('users', messageSchema)
+  var MessageModel = mongoose.model('message', messageSchema)
   return MessageModel
 }
 module.exports = {

@@ -73,23 +73,23 @@
                         <div class="modal-body">
 
                             <!-- 发表文章 -->
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" action="/article" method="post" id='post_article'>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">标题</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="title" placeholder="文章标题">
+                                        <input type="text" class="form-control" id="title" placeholder="文章标题" name="title">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="summary" class="col-sm-2 control-label">摘要</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="summary" rows="2" placeholder="文章摘要"></textarea>
+                                        <textarea class="form-control" id="summary" rows="2" placeholder="文章摘要" name="summary"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="content" class="col-sm-2 control-label">正文</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="content" rows="18" placeholder="正文内容"></textarea>
+                                        <textarea class="form-control" id="content" rows="18" placeholder="正文内容" name="content"></textarea>
                                     </div>
                                 </div>
                             </form>
@@ -97,7 +97,7 @@
                         <!-- 发表终止 -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary">注册</button>
+                            <button type="submit" class="btn btn-primary" form="post_article">发布</button>
                         </div>
                     </div>
                 </div>

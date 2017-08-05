@@ -56,7 +56,7 @@ router.post('/', check.NeedNoLogin, function (req, res) {
       profile: users.profile // 简介
     })
     UserModel.create(user).then(
-      function (saveuser) {
+      function (saveuser) {  // 毕竟还没有学promise，这个then（）调用之后就不产生回调的问题，也就不会有error这个参数
         req.session.user = saveuser
         req.flash('success', '注册成功')
         return res.redirect('/')
