@@ -2,7 +2,6 @@ var express = require('express')
 var router = express.Router()
 var mongoose = require('mongoose')
 var ArticleModel = require('../models/mongooseSchema').article(mongoose)
-var ArticleModel = mongoose.model('article')
 // 首页
 
 router.get('/', function (req, res) {

@@ -2,7 +2,6 @@ var express = require('express')
 var router = express.Router()
 var check = require('../models/check')
 var mongoose = require('mongoose')
-// var ArticleModel = require('../models/mongooseSchema').article(mongoose)
 var ArticleModel = mongoose.model('article')
 // 首页
 router.get('/', function (req, res) {
@@ -11,7 +10,6 @@ router.get('/', function (req, res) {
 
 // 点击头像展示 特定作者的所有文章summary方式展示
 router.get('/author=*', check.NeedLogin, function (req, res) { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
-  console.log('........-------------------------..................')
   ArticleModel.find({ author: req.params.author })
     .then(function (articles) {
       try {
@@ -28,7 +26,6 @@ router.get('/author=*', check.NeedLogin, function (req, res) { // 此处路由�
 
 // 根据文章存储自动生成的_id 来寻找文章  主要用于发表完文章后自动跳转到已发表文章页
 router.get('/id=*', check.NeedLogin, function (req, res) { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
-  console.log(req.params[0])
   ArticleModel.findOne({ _id: req.params[0] })
     .then(function (article) {
       try {
