@@ -1,17 +1,19 @@
 // 分路由引入
-var home = require('./home')
-var signup = require('./signup')
-var signout = require('./signout')
-var signin = require('./signin')
-var article = require('./article')
+const home = require('./home');
+const signup = require('./signup');
+const signout = require('./signout');
+const signin = require('./signin');
+const article = require('./article');
+const test = require('./test');
 
 // 路由
-function routes (app) {
-  app.use('/', home) // home.js中的ArticleModel应该先用var ArticleModel = require('../models/mongooseSchema').article(mongoose)
-  app.use('/signup', signup)
-  app.use('/signout', signout)
-  app.use('/signin', signin)
-  app.use('/article', article)
+function routes(app) {
+  app.use('/', home); // home.js中的ArticleModel应该先用var ArticleModel = require('../models/mongooseSchema').article(mongoose)
+  app.use('/signup', signup);
+  app.use('/signout', signout);
+  app.use('/signin', signin);
+  app.use('/article', article);
+  app.use('/test', test);
 }
 
-module.exports = routes
+module.exports = routes;

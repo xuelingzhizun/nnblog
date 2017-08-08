@@ -1,16 +1,17 @@
-var path = require('path')
-var express = require('express')
-var session = require('express-session')
-var MongoStore = require('connect-mongo')(session)
-var mongoose = require('mongoose')
-var flash = require('connect-flash')
-var config = require('config-lite')(__dirname)
-var routes = require('./routes/index')
-var sess = require('./models/sess')(config, MongoStore)
-var localVariables = require('./models/localVariables')
-var mongooseConnect = require('./models/mongooseConnect')
-var formidable = require('express-formidable')
-var app = express()
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const config = require('config-lite')(__dirname);
+const routes = require('./routes/index');
+const sess = require('./models/sess')(config, MongoStore);
+const localVariables = require('./models/localVariables');
+const mongooseConnect = require('./models/mongooseConnect');
+const formidable = require('express-formidable');
+
+const app = express();
 // var sess = {
 //   name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
 //   secret: config.session.secret, // 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
@@ -24,36 +25,36 @@ var app = express()
 //   })
 // }
 // 使用mongoose链接启动数据库
-mongooseConnect(mongoose, config)
+mongooseConnect(mongoose, config);
 
 // 设置模板目录
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 
 // 设置模板引擎为 ejs
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 // 设置静态文件目录
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 // session 中间件
-app.use(session(sess))
+app.use(session(sess));
 
 // flash 中间件，用来显示通知
-app.use(flash())
+app.use(flash());
 
 // 设置req解析中间件
 app.use(formidable({
   uploadDir: path.join(__dirname, 'public/img/icon'),
-  keepExtensions: true
-}))
+  keepExtensions: true,
+}));
 
 // 设置几个模板中用的变量 不需要通过req.render()来渲染进模板 
-localVariables.appLocals(app, config)
-app.use(localVariables.resLocals)
+localVariables.appLocals(app, config);
+app.use(localVariables.resLocals);
 
 // 路由
 
-routes(app)
+routes(app);
 // 错误处理中间件
 // app.use(function (err, req, res, next) {
 //   console.error(err.stack)
@@ -61,6 +62,6 @@ routes(app)
 // })
 
 // 监听端口，启动程序
-app.listen(config.port, function () {
-  console.log(`${config.name} listening on port ${config.port}`)
-})
+app.listen(config.port, () => {
+  console.log(`${config.name} listening on port ${config.port}`);
+});

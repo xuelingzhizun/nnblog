@@ -1,9 +1,10 @@
 // var fs = require('fs')
 // var path = require('path')
-var express = require('express')
-var router = express.Router()
+const express = require('express');
+
+const router = express.Router();
 // 首页
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
 //   var filepath = (__dirname).split(path.sep)
 //   filepath.pop()
 // // console.log(filepath)
@@ -15,6 +16,6 @@ router.get('/', function (req, res) {
 //     var fileurl = path.resolve('/', data[i++])
 //     res.render('fileshow', data)
 //   })
-})
+});
 
-module.exports = router
+module.exports = router;

@@ -1,21 +1,20 @@
-var express = require('express')
-var router = express.Router()
-var sha1 = require('sha1')
-var mongoose = require('mongoose')
-var check = require('../models/check.js')
+let express = require('express')
+;
+let router = express.Router();
+let sha1 = require('sha1');
+let mongoose = require('mongoose');
+let check = require('../models/check.js');
 // var UserModule = require('../models/mongooseSchema').user(mongoose)
-var UserModel = mongoose.model('users')
+let UserModel = mongoose.model('users');
 
 // GET /signout 登出
-router.post('/', check.NeedNoLogin, function (req, res) {
+router.post('/', check.NeedNoLogin, (req, res) => {
   var users = {
     name: req.fields.username,
     password: req.fields.password
   }
 
   UserModel.findOne({ name: users.name }, function (err, auser) {
-    console.log('error:' + err)
-    console.log('auser' + auser)
     try {
       if (!auser) {
         throw new Error('登录失败：用户名或者密码错误')
@@ -36,6 +35,6 @@ router.post('/', check.NeedNoLogin, function (req, res) {
       return res.redirect('/')
     }
   })
-})
+});
 
-module.exports = router
+module.exports = router;
