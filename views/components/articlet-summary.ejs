@@ -1,17 +1,18 @@
+<% res.forEach(function(re){ %>
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                    <img style="width:64px;height:64px" class="media-object" src="/img/icon/<%= res.icon %>" alt="...">
+                    <img style="width:64px;height:64px" class="media-object" src="/img/icon/<%= re.icon %>" alt="...">
                 </a>
             </div>
 
             <div class="media-body">
-                <h2 class="media-heading"><%= res.title %></h2>
-                <p><%= res.summary %></p>
-                <p><%= res.content %></p>                                
+                <h2 class="media-heading"><a href="#"><%= re.title %></a></h2>
+                <p><%= re.summary %></p>
+                <p></p>
             </div>
         </div>
     </div>
@@ -19,3 +20,4 @@
 </div>
 <br>
 <br>
+<% }) %>

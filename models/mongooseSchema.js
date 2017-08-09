@@ -1,48 +1,51 @@
-function user (mongoose) {
-  var userSchema = new mongoose.Schema({
-    name: {type: 'string'},
-    password: {type: 'string'},
-    email: {type: 'string'},
-    icon: {type: 'string'}, // 头像
-    profile: {type: 'string'} // 简介
-
-  })
-
-  var UserModel = mongoose.model('users', userSchema)
-  return UserModel
-}
-
-function article (mongoose) {
-  var articleSchema = new mongoose.Schema({
-    author: { type: 'string' }, // 待修改
-    title: { type: 'string' },
-    content: { type: 'string' }, // 内容
+function user(mongoose) {
+  const userSchema = new mongoose.Schema({
+    name: { type: 'string' },
+    password: { type: 'string' },
+    email: { type: 'string' },
+    icon: { type: 'string' }, // 头像
+    profile: { type: 'string' }, // 简介
     date: { type: Date, default: Date.now },
-    pv: { type: 'number' }
+    articles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'article' }],
+    messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'message' }],
+  });
 
-  })
-
-  var articleModel = mongoose.model('users', articleSchema)
-  return articleModel
+  const UserModel = mongoose.model('users', userSchema);
+  return UserModel;
 }
 
-function message (mongoose) {
-  var messageSchema = new mongoose.Schema({
-    author: { type: 'string' },
+function article(mongoose) {
+  const articleSchema = new mongoose.Schema({
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'users' }, // 待修改             
+    title: { type: 'string' },
+    summary: { type: 'string' },
+    content: { type: 'string' }, // 内容
+    messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'message' }],
+    date: { type: Date, default: Date.now },
+    pv: { type: 'number' },
+
+  });
+
+  const articleModel = mongoose.model('article', articleSchema);
+  return articleModel;
+}
+
+function message(mongoose) {
+  const messageSchema = new mongoose.Schema({
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+    arctitle: { type: mongoose.Schema.Types.ObjectId, ref: 'article' },
     content: { type: 'string' },
     date: { type: Date, default: Date.now },
-    postId: { type: 'number' }
+  });
 
-  })
-
-  var MessageModel = mongoose.model('users', messageSchema)
-  return MessageModel
+  const MessageModel = mongoose.model('message', messageSchema);
+  return MessageModel;
 }
 module.exports = {
-  user: user,
-  article: article,
-  message: message
-}
+  user,
+  article,
+  message,
+};
 
 /**
  var fluffy = new UserModel({

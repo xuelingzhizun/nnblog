@@ -1,39 +1,40 @@
-var express = require('express')
-var router = express.Router()
-var sha1 = require('sha1')
-var mongoose = require('mongoose')
-var check = require('../models/check.js')
+const express = require('express');
+
+const router = express.Router();
+const sha1 = require('sha1');
+const mongoose = require('mongoose');
+const check = require('../models/check.js');
 // var UserModule = require('../models/mongooseSchema').user(mongoose)
-var UserModel = mongoose.model('users')
+const UserModel = mongoose.model('users');
 
 // GET /signout 登出
-router.post('/', check.NeedNoLogin, function (req, res) {
-  var users = {
+router.post('/', check.NeedNoLogin, (req, res) => {
+  const users = {
     name: req.fields.username,
-    password: req.fields.password
-  }
+    password: req.fields.password,
+  };
 
-  UserModel.findOne({ name: users.name }, function (err, auser) {
+  UserModel.findOne({ name: users.name }, (err, auser) => {
     try {
       if (!auser) {
-        throw new Error('登录失败：用户名或者密码错误')
+        throw new Error('登录失败：用户名或者密码错误');
       } else {
-        var sha1password = sha1(users.password) // password 加密
+        const sha1password = sha1(users.password); // password 加密
         if (auser.password === sha1password) {
-          req.session.user = auser
-          req.flash('success', '账户登录')
+          req.session.user = auser;
+          req.flash('success', '账户登录');
           // 登出成功后跳转到主页
-          res.redirect('/')
+          res.redirect('/');
         } else {
-          throw new Error('登录失败：用户名或者密码错误')
+          throw new Error('登录失败：用户名或者密码错误');
         }
       }
-      if (err) throw new Error('`UserModule.findOne()`内部错误')
+      if (err) throw new Error('`UserModule.findOne()`内部错误');
     } catch (e) {
-      req.flash('error', e.message)
-      return res.redirect('/')
+      req.flash('error', e.message);
+      return res.redirect('/');
     }
-  })
-})
+  });
+});
 
-module.exports = router
+module.exports = router;
