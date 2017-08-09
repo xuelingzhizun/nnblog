@@ -4,12 +4,13 @@
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                    <img class="media-object" src="/img/icon/" alt="...">
+                    <img style="width:64px;height:64px" class="media-object" src="/img/icon/<%= res.icon %>" alt="...">
                 </a>
             </div>
 
             <div class="media-body">
-                <h2 class="media-heading"><a href="#"><%= res.title %></a></h2>
+                <h2 class="media-heading"><%= res.title %></h2>
+                <p><%= res.summary %></p>
                 <p><%= res.content %></p>                                
             </div>
         </div>
