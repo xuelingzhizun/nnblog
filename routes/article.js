@@ -38,12 +38,13 @@ router.get('/author=*', check.NeedLogin, (req, res) => { // 此处路由所使�
             name: reqauthor,                                //        icon: 'xxx',     
             icon: recdata.icon,                             //        articles:[
             profile: recdata.profile,                       //                  {title:'xx',summary:'xxx'}
+            _id: data._id,                                  //                  {title:'xx',summary:'xxx'}
             title: data.title,                              //                  {title:'xx',summary:'xxx'}
             summary: data.summary,                          //                 ]
             content: data.content,                          // 现在是 renderdata = [
           };                                                //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
           i += 1;                                           //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
-        });                                                 //                    ]   为的是统一渲染网页的数据形式
+        });                                                 //                    ]   为的是统一渲染网页的数据形式 
         res.render('author_summary', { res: renderdata });
       }
     });

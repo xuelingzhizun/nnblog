@@ -4,13 +4,13 @@
     <div class="col-md-10">
         <div class="media">
             <div class="media-left">
-                <a href="#">
+                <a href="/article/author=<%= re.name %>">
                     <img style="width:64px;height:64px" class="media-object" src="/img/icon/<%= re.icon %>" alt="...">
                 </a>
             </div>
 
             <div class="media-body">
-                <h2 class="media-heading"><a href="#"><%= re.title %></a></h2>
+                <h2 class="media-heading"><a href="/article/id=<%= re._id %>"><%= re.title %></a></h2>
                 <p><%= re.summary %></p>
                 <p></p>
             </div>
