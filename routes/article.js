@@ -52,6 +52,7 @@ router.get('/author=*', check.NeedLogin, (req, res) => { // 此处路由所使�
 
 // 根据文章存储自动生成的_id 来寻找文章  主要用于发表完文章后自动跳转到已发表文章页
 router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
+  if (req.params[0].length !== 24) return res.redirect('/404'); // 如果输入的id的位数不是24位，就跳转到404页面
   ArticleModel
     .findOne({ _id: req.params[0] })
     .populate({ path: 'author', select: 'name icon profile' })
