@@ -1,9 +1,10 @@
 const express = require('express');
-
-const router = express.Router();
 const mongoose = require('mongoose');
+
 const UserModel = require('../models/mongooseSchema').user(mongoose);
 const ArticleModel = require('../models/mongooseSchema').article(mongoose);
+
+const router = express.Router();
 
 // 首页
 router.get('/', (req, res) => {
@@ -27,6 +28,7 @@ router.get('/', (req, res) => {
             name: data.author.name,
             icon: data.author.icon,
             profile: data.author.profile,
+            _id: data._id,
             title: data.title,
             summary: data.summary,
             content: data.content,

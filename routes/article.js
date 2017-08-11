@@ -38,12 +38,13 @@ router.get('/author=*', check.NeedLogin, (req, res) => { // 此处路由所使�
             name: reqauthor,                                //        icon: 'xxx',     
             icon: recdata.icon,                             //        articles:[
             profile: recdata.profile,                       //                  {title:'xx',summary:'xxx'}
+            _id: data._id,                                  //                  {title:'xx',summary:'xxx'}
             title: data.title,                              //                  {title:'xx',summary:'xxx'}
             summary: data.summary,                          //                 ]
             content: data.content,                          // 现在是 renderdata = [
           };                                                //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
           i += 1;                                           //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
-        });                                                 //                    ]   为的是统一渲染网页的数据形式
+        });                                                 //                    ]   为的是统一渲染网页的数据形式 
         res.render('author_summary', { res: renderdata });
       }
     });
@@ -51,6 +52,7 @@ router.get('/author=*', check.NeedLogin, (req, res) => { // 此处路由所使�
 
 // 根据文章存储自动生成的_id 来寻找文章  主要用于发表完文章后自动跳转到已发表文章页
 router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
+  if (req.params[0].length !== 24) return res.redirect('/404'); // 如果输入的id的位数不是24位，就跳转到404页面
   ArticleModel
     .findOne({ _id: req.params[0] })
     .populate({ path: 'author', select: 'name icon profile' })
