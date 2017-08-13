@@ -5,6 +5,7 @@ const signout = require('./signout');
 const signin = require('./signin');
 const article = require('./article');
 const message = require('./message');
+const error = require('./error');
 
 // 路由
 function routes(app) {
@@ -14,6 +15,7 @@ function routes(app) {
   app.use('/signin', signin);
   app.use('/article', article);
   app.use('/message', message);
+  app.use('/*', error);
 }
 
 module.exports = routes;
