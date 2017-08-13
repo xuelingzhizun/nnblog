@@ -1,10 +1,12 @@
 $(document).ready(() => {
   $('#ejsbutton').click(() => {
+    var ajaxdata = $('#ajaxdata').val();
+    if(!ajaxdata) return false;
     console.log( $('#ajaxdata').val());
     $.ajax({
       type: 'post',
       url: '/message',
-      data: 'mescontent=' +encodeURI($('#ajaxdata').val(),"UTF-8")+ '&articleid=' + window.location.pathname ,
+      data: 'mescontent=' +encodeURI(ajaxdata,"UTF-8")+ '&articleid=' + window.location.pathname ,
       //  encodeURI(需要编码内容,"UTF-8") 中文乱码解决
       dataType: 'json',
       contentType:"application/x-www-form-urlencoded; charset=utf-8",
