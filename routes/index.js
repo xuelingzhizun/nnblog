@@ -4,7 +4,6 @@ const signup = require('./signup');
 const signout = require('./signout');
 const signin = require('./signin');
 const article = require('./article');
-const test = require('./test');
 const message = require('./message');
 
 // 路由
@@ -14,7 +13,6 @@ function routes(app) {
   app.use('/signout', signout);
   app.use('/signin', signin);
   app.use('/article', article);
-  app.use('/test', test);
   app.use('/message', message);
 }
 
