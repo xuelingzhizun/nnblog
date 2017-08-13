@@ -1,7 +1,8 @@
 $(document).ready(() => {
   $('#ejsbutton').click(() => {
     var ajaxdata = $('#ajaxdata').val();
-    if(!ajaxdata) return false;
+    if(!ajaxdata) return false; // 修复空白留言问题
+    $('#ajaxdata').val(''); //修复"留言"以后，留言的内容仍然显示在留言输入框中
     console.log( $('#ajaxdata').val());
     $.ajax({
       type: 'post',

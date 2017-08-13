@@ -22,12 +22,13 @@
                 <% message.forEach(function(message){ %>
                     <div class="media">
                         <div class="media-left">
-                            <a href="#">
+                            <a href="/article/author=<%= message.mesauthor %>">
                                <img class="media-object" style="width:64px;height:64px" src="/img/icon/<%= message.mesicon %>" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
                             <p> <%= message.mescontent %> </p>
+                            <p>1 <%= message.mesauthor %> </p>
                         </div>
                     </div>                    
                 <% }) %>

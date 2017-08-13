@@ -1,12 +1,13 @@
 const express = require('express');
-
-const router = express.Router();
-const check = require('../models/check');
+const marked = require('marked');
 const mongoose = require('mongoose');
+const check = require('../models/check');
 
 const UserModel = mongoose.model('users');
 const ArticleModel = mongoose.model('article');
 const MessageModel = mongoose.model('message');
+
+const router = express.Router();
 
 
 // 点击头像展示 特定作者的所有文章summary方式展示
@@ -53,14 +54,10 @@ router.get('/author=*', check.NeedLogin, (req, res) => { // 此处路由所使�
 
 // 根据文章存储自动生成的_id 来寻找文章  主要用于发表完文章后自动跳转到已发表文章页
 router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
-<<<<<<< HEAD
-  if (req.params[0].length !== 24) return res.redirect('/404'); // 如果输入的id的位数不是24位，就跳转到404页面
-=======
-  if(req.params[0].length!==24) {
+  if (req.params[0].length !== 24) {
     req.flash('error', '没有找到此篇文章');
     return res.redirect('/');
   }
->>>>>>> tmain
   ArticleModel
     .findOne({ _id: req.params[0] })
     .populate({ path: 'author', select: 'name icon profile' })
@@ -74,7 +71,7 @@ router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的
       if (recdata) {
         MessageModel
           .find({ belongarticle: req.params[0] })
-          .populate({ path: 'mesauthor', select: 'icon' })
+          .populate({ path: 'mesauthor', select: 'icon name' })
           .then((recdata2) => {
             const messages = [];
             let i = 0;
@@ -82,6 +79,7 @@ router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的
               messages[i] = { // 有一个疑问，为什么必须用大括号的形式，而不能使用分开赋值的方式：message[i].mesicon:message.mesauthor.iocn; message[i].mescontent: message.mescontent,
                 mesicon: message.mesauthor.icon,
                 mescontent: message.mescontent,
+                mesauthor: message.mesauthor.name,
               };
               i += 1;
             });
@@ -109,7 +107,7 @@ router.post('/', check.NeedLogin, (req, res) => {
     author: req.session.user._id,
     title: req.fields.title,
     summary: req.fields.summary,
-    content: req.fields.content,
+    content: marked(req.fields.content),
   };
   //   author: { type: mongoose.Schema.Types.Object, ref: 'users' }, // 待修改
   //   title: { type: 'string' },
