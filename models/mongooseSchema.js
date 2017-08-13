@@ -46,18 +46,3 @@ module.exports = {
   article,
   message,
 };
-
-/**
- var fluffy = new UserModel({
-    name: 'liuxue',
-    password: '370',
-    avatar: 'm',
-    gender: 'm',
-    profile: 'good man'
-  })
-
-  fluffy.save(function (err, fluffy) {
-    if (err) return console.error(err)
-  })
- 
-  */

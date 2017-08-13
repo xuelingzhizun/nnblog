@@ -18,6 +18,20 @@
                 <!-- 前端渲染部分 启 -->
                 <div id="ejsmessage"></div>
                 <!-- 前端渲染部分 止 -->
+                <!-- 后端渲染部分 启 -->
+                <% message.forEach(function(message){ %>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                               <img class="media-object" style="width:64px;height:64px" src="/img/icon/<%= message.mesicon %>" alt="...">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <p> <%= message.mescontent %> </p>
+                        </div>
+                    </div>                    
+                <% }) %>
+                <!-- 后端渲染部分 止 -->
             </div>
         </div>
 

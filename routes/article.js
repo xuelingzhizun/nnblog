@@ -4,8 +4,9 @@ const router = express.Router();
 const check = require('../models/check');
 const mongoose = require('mongoose');
 
-const ArticleModel = mongoose.model('article');
 const UserModel = mongoose.model('users');
+const ArticleModel = mongoose.model('article');
+const MessageModel = mongoose.model('message');
 
 
 // 点击头像展示 特定作者的所有文章summary方式展示
@@ -52,10 +53,13 @@ router.get('/author=*', check.NeedLogin, (req, res) => { // 此处路由所使�
 
 // 根据文章存储自动生成的_id 来寻找文章  主要用于发表完文章后自动跳转到已发表文章页
 router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的正则表达式和js默认的方式所展现的情况似乎不同 
+  if(req.params[0].length!==24) {
+    req.flash('error', '没有找到此篇文章');
+    return res.redirect('/');
+  }
   ArticleModel
     .findOne({ _id: req.params[0] })
     .populate({ path: 'author', select: 'name icon profile' })
-    .populate({ path: 'messages', select: 'author content artid' })
     .then((recdata) => {
       try {
         if (!recdata) throw new Error('链接文章失败：没有找到该文章');
@@ -64,20 +68,33 @@ router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的
         return res.redirect('/');
       }
       if (recdata) {
-        const renderdata = {
-          name: recdata.author.name,
-          icon: recdata.author.icon,
-          profile: recdata.author.profile,
-          title: recdata.title,
-          summary: recdata.summary,
-          content: recdata.content,
-          messages: {
-            mesauthor: recdata.messages.mesauthor,
-            mescontent: recdata.messages.mescontent,
-          },
-        };
-        console.log(`${renderdata.messages.mesauthor}/${renderdata.messages.mescontent}`);
-        res.render('article', { res: renderdata });
+        MessageModel
+          .find({ belongarticle: req.params[0] })
+          .populate({ path: 'mesauthor', select: 'icon' })
+          .then((recdata2) => {
+            const messages = [];
+            let i = 0;
+            recdata2.forEach((message) => {
+              messages[i] = { // 有一个疑问，为什么必须用大括号的形式，而不能使用分开赋值的方式：message[i].mesicon:message.mesauthor.iocn; message[i].mescontent: message.mescontent,
+                mesicon: message.mesauthor.icon,
+                mescontent: message.mescontent,
+              };
+              i += 1;
+            });
+
+            const renderdata = {
+              name: recdata.author.name,
+              icon: recdata.author.icon,
+              profile: recdata.author.profile,
+              title: recdata.title,
+              summary: recdata.summary,
+              content: recdata.content,
+            };
+            res.render('article', {
+              res: renderdata,
+              message: messages,
+            });
+          });
       }
     });
 });
@@ -120,6 +137,5 @@ router.post('/', check.NeedLogin, (req, res) => {
       },
     );
 });
-// UserModel.update({ _id: req.session.user._id }, { $addToSet: { articles: article._id } })
 
 module.exports = router;
