@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const UserModel = require('../models/mongooseSchema').user(mongoose);
 const ArticleModel = require('../models/mongooseSchema').article(mongoose);
+const MessageModel = require('../models/mongooseSchema').message(mongoose);
 
 const router = express.Router();
 

@@ -33,18 +33,18 @@ router.get('/author=*', check.NeedLogin, (req, res) => { // 此处路由所使�
       if (recdata) {
         const renderdata = [];
         let i = 0;
-        recdata.articles.forEach((data) => {                // 把获取到users数据转换成数组形式
-          renderdata[i] = {                                 // 原来是 {name：‘xx’,
-            name: reqauthor,                                //        icon: 'xxx',     
-            icon: recdata.icon,                             //        articles:[
-            profile: recdata.profile,                       //                  {title:'xx',summary:'xxx'}
-            _id: data._id,                                  //                  {title:'xx',summary:'xxx'}
-            title: data.title,                              //                  {title:'xx',summary:'xxx'}
-            summary: data.summary,                          //                 ]
-            content: data.content,                          // 现在是 renderdata = [
-          };                                                //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
-          i += 1;                                           //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
-        });                                                 //                    ]   为的是统一渲染网页的数据形式 
+        recdata.articles.forEach((data) => { // 把获取到users数据转换成数组形式
+          renderdata[i] = { // 原来是 {name：‘xx’,
+            name: reqauthor, //        icon: 'xxx',     
+            icon: recdata.icon, //        articles:[
+            profile: recdata.profile, //                  {title:'xx',summary:'xxx'}
+            _id: data._id, //                  {title:'xx',summary:'xxx'}
+            title: data.title, //                  {title:'xx',summary:'xxx'}
+            summary: data.summary, //                 ]
+            content: data.content, // 现在是 renderdata = [
+          }; //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
+          i += 1; //                     {name:'xx',icon:'xx',title:'xx',summary:'xxx'}
+        }); //                    ]   为的是统一渲染网页的数据形式 
         res.render('author_summary', { res: renderdata });
       }
     });
@@ -55,6 +55,7 @@ router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的
   ArticleModel
     .findOne({ _id: req.params[0] })
     .populate({ path: 'author', select: 'name icon profile' })
+    .populate({ path: 'messages', select: 'author content artid' })
     .then((recdata) => {
       try {
         if (!recdata) throw new Error('链接文章失败：没有找到该文章');
@@ -70,7 +71,12 @@ router.get('/id=*', check.NeedLogin, (req, res) => { // 此处路由所使用的
           title: recdata.title,
           summary: recdata.summary,
           content: recdata.content,
+          messages: {
+            mesauthor: recdata.messages.mesauthor,
+            mescontent: recdata.messages.mescontent,
+          },
         };
+        console.log(`${renderdata.messages.mesauthor}/${renderdata.messages.mescontent}`);
         res.render('article', { res: renderdata });
       }
     });
@@ -109,7 +115,7 @@ router.post('/', check.NeedLogin, (req, res) => {
           // 根据当前用户也就是发表文章的用户的_id查找到该用户的document，并在其document中的articles里添加此次被发表的文章的_id；
           // 由于一个用户可能发表多篇文档，所以用户的articles是一个数组，故用$addToSet为其更新数据
           .update({ _id: req.session.user._id }, { $addToSet: { articles: recdata._id } })
-          .then(rec => console.log(rec));
+          .then(rec => console.log(rec)); // 这一句没有了上一句就不能更新，我也不知道为什么，另外rec的结果也有点匪夷所思，需要假以时日认真读mongoose的API
         return res.redirect(`/article/id=${recdata._id}`);
       },
     );
