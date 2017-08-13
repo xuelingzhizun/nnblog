@@ -2,58 +2,36 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
 
-                <div class="panel panel-default">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">留言</h3>
             </div>
             <div class="panel-body">
                 <div class="media">
                     <div class="media-left">
-                         <input type="image" src="/img/64.png" /> 
+                         <input class="btn btn-default pull-left" id="ejsbutton" style="width:64px;height:64px" type="button" value="提交" />
                     </div>
                     <div class="media-body">
-                        <textarea class="form-control" id="summary" rows="4" placeholder="文章留言"></textarea>
+                        <textarea class="form-control" id="ajaxdata" rows="4" placeholder="文章留言" ></textarea>
                     </div>
                 </div>
-
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" src="/img/64.png" alt="...">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">Media headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headingMedia headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra
-                            headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra
-                            headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra
-                            headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrsrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrringMedia
-                            headingMedia headingMedia heading</h4>
-                    </div>
-                </div>
-
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                                  <img class="media-object" src="/img/64.png" alt="...">
-                                </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">Media headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headingMedia headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra
-                            headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra
-                            headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrra
-                            headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia headingMedia
-                            headingMedia headffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdhgsegesrgerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrsrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrringMedia
-                            headingMedia headingMedia heading</h4>
-
-                    </div>
-                </div>
+                <!-- 前端渲染部分 启 -->
+                <div id="ejsmessage"></div>
+                <!-- 前端渲染部分 止 -->
+                <!-- 后端渲染部分 启 -->
+                <% message.forEach(function(message){ %>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                               <img class="media-object" style="width:64px;height:64px" src="/img/icon/<%= message.mesicon %>" alt="...">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <p> <%= message.mescontent %> </p>
+                        </div>
+                    </div>                    
+                <% }) %>
+                <!-- 后端渲染部分 止 -->
             </div>
         </div>
 

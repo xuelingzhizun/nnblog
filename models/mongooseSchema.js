@@ -32,9 +32,9 @@ function article(mongoose) {
 
 function message(mongoose) {
   const messageSchema = new mongoose.Schema({
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-    arctitle: { type: mongoose.Schema.Types.ObjectId, ref: 'article' },
-    content: { type: 'string' },
+    mesauthor: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+    belongarticle: { type: mongoose.Schema.Types.ObjectId, ref: 'article' },
+    mescontent: { type: 'string' },
     date: { type: Date, default: Date.now },
   });
 
@@ -46,18 +46,3 @@ module.exports = {
   article,
   message,
 };
-
-/**
- var fluffy = new UserModel({
-    name: 'liuxue',
-    password: '370',
-    avatar: 'm',
-    gender: 'm',
-    profile: 'good man'
-  })
-
-  fluffy.save(function (err, fluffy) {
-    if (err) return console.error(err)
-  })
- 
-  */
