@@ -2,6 +2,7 @@ $(document).ready(() => {
   $('#ejsbutton').click(() => {
     var ajaxdata = $('#ajaxdata').val();
     if(!ajaxdata) return false;
+    $('#ajaxdata').val('');
     console.log( $('#ajaxdata').val());
     $.ajax({
       type: 'post',
